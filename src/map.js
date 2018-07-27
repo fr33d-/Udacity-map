@@ -184,12 +184,6 @@ class Map extends Component {
             map.fitBounds(bounds);
         }
     
-        function hideListings() {
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(null);
-            }
-        }
-    
         function populateInfoWindow(marker, infowindow) {
             if (infowindow.marker !== marker) {
                 infowindow.marker = marker; 
@@ -199,7 +193,7 @@ class Map extends Component {
                     <span class="popover-description">' + marker.description + '</span> \
                     <img class="popover-photo" src="' + require("./img/" + marker.photo) + '" alt="' + marker.title + '"/> \
                     </div>');
-                infowindow.open(this.map, marker);
+                infowindow.open(map, marker);
                 infowindow.addListener('closeclick', function() {
                     infowindow.marker = null;
                 });
@@ -218,6 +212,10 @@ class Map extends Component {
         };
     
         function showFilteredMarkers(locations) {
+
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
     
             for (var i = 0; i < locations.length; i++) {
                 var position = locations[i].location; 
@@ -303,7 +301,7 @@ class Map extends Component {
 				break;
         }
         
-        // this.componentDidMount.showFilteredMarkers(this.state.filteredLocations);
+        // this.componentDidMount().showFilteredMarkers(this.state.filteredLocations);
 
 	}
 
@@ -325,7 +323,7 @@ class Map extends Component {
                     </select>
                     <ul id="filteredFotosList">
                         <span className="li-info">{this.state.locations.length} Photos found</span>
-                        {this.state.filteredLocations.map(photo => ( <Photo photo={photo} key={photo.id}/>))}
+                        {this.state.filteredLocations.map(photo => ( <Photo photo={photo} key={photo.id} />))}
                     </ul>
                 </div>
             </div>

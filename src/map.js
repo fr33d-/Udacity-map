@@ -17,12 +17,8 @@ class Map extends Component {
             {id: 3, title: 'Eisbachwelle', location: {lat: 48.143525, lng: 11.587944}, photo: 'Eisbachwelle.png', description: 'People surfing in the middle of the city.', category: 'people'},
             {id: 4, title: 'Sigestor', location: {lat: 48.152495, lng: 11.582192}, photo: 'Sigestor.png', description: 'Impressive Gate.', category: 'places'},
             {id: 5, title: 'Endless Staircase', location: {lat: 48.132890, lng: 11.540069}, photo: 'Stairs.png', description: 'Art in an office building, cool but useless.', category: 'art'}
-        ]
-    };
-
-    componentDidMount() {
-
-        var styles = [
+        ], 
+        'styles': [
             {
                 "featureType": "administrative",
                 "elementType": "labels.text.fill",
@@ -174,7 +170,11 @@ class Map extends Component {
                 ]
             }
         ]
-    
+    };
+
+    // googleMap() {
+    componentDidMount() {
+        
         function showListings() {
             var bounds = new window.google.mapLatLngBounds();
             for (var i = 0; i < markers.length; i++) {
@@ -252,7 +252,7 @@ class Map extends Component {
         const map = new window.google.maps.Map(document.getElementById('map'), {
             center: { lat: 48.155004, lng: 11.4717968 },
             zoom: 12, 
-            styles: styles, 
+            styles: this.state.styles, 
             mapTypeControl: false
         });
 
@@ -266,7 +266,13 @@ class Map extends Component {
         // document.getElementById('show-listings').addEventListener('click', showListings);
         // document.getElementById('hide-listings').addEventListener('click', hideListings);
 
-    };
+    }
+
+    // componentDidMount() {
+
+    //     googleMap().showFilteredMarkers(this.state.filteredLocations);
+
+    // };
 
     handleChange = (action) => {
 		switch (action.target.value) {

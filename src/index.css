@@ -111,3 +111,40 @@ li > img {
   color: gray;
   font-style: italic;
 }
+.weather-info {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 15px 5px;
+  display: block;
+}
+
+.app-info {
+  color: gray;
+  font-size: 12px;
+}
+
+.max-button, .min-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+@media only screen and (min-width: 760px) {
+	.max-button {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+	.min-button {
+    display: none;
+  }
+
+  #mapOverlayContent {
+    display: none;
+  }
+
+  .map-overlay {
+    height: 80px;
+  }
+}

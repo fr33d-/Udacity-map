@@ -246,9 +246,9 @@ class Map extends Component {
     //Google Map API actions and variables
     //Displays the map, different marker icons for hover state and the info window
     //function can be called with the markers to display, so when a filter is applyed new markers can be shown.
+    markers = [];
     googleMap(locations) {
 
-        var markers = [];
         var largeInfowindow = new window.google.maps.InfoWindow();
         var defaultIcon = makeMarkerIcon('CD3E00');
         var highlightedIcon = makeMarkerIcon('7ED321');
@@ -264,6 +264,7 @@ class Map extends Component {
                     </div>');
                 infowindow.open(map, marker);
                 infowindow.addListener('closeclick', function() {
+                    marker.setAnimation(null)
                     infowindow.marker = null;
                 });
 
@@ -282,17 +283,20 @@ class Map extends Component {
             return markerImage;
         };
 
+        function toggleBounce() {
+            if (this.getAnimation() !== null) {
+              this.setAnimation(null);
+            } else {
+              this.setAnimation(window.google.maps.Animation.BOUNCE);
+            }
+          }
+
         const map = new window.google.maps.Map(document.getElementById('map'), {
             center: { lat: 40.006782, lng: -103.648214 },
             zoom: 5,
             styles: this.state.styles,
             mapTypeControl: false
         });
-
-        //Hide existing markers
-        // for (var i = 0; i < markers.length; i++) {
-        //     markers[i].setMap(null);
-        // }
 
         //Display marker for each location
         // and define bounds
@@ -316,7 +320,7 @@ class Map extends Component {
                 id: i
             });
             bounds.extend( marker.getPosition() );
-            markers.push(marker);
+            this.markers.push(marker);
             marker.addListener('click', function() {
                 populateInfoWindow(this, largeInfowindow);
             });
@@ -326,11 +330,17 @@ class Map extends Component {
             marker.addListener('mouseout', function() {
                 this.setIcon(defaultIcon);
             });
+            marker.addListener('click', toggleBounce);
         }
 
         map.fitBounds(bounds);
 
     }
+
+    // openMarker(id){
+    //     window.google.maps.event.trigger(this.markers[id], 'click');
+    //     console.log(id);
+    // }
 
     //Filter method - writes filtered photos to state, so it will be displayed in the list and updates the pins in the map.
     handleChange = (action) => {
@@ -461,7 +471,7 @@ class Map extends Component {
                         </select>
                         <ul id="filteredFotosList">
                             <span className="li-info">{this.state.locations.length} Photos found</span>
-                            {this.state.filteredLocations.map(photo => ( <Photo photo={photo} key={photo.id} />))}
+                            {this.state.filteredLocations.map(photo => ( <Photo photo={photo} key={photo.id} />))} {/* onClick={this.openMarker(photo.id)} */}
                         </ul>
                         <span className="app-info">Google Maps API 2018, aditional information from openweathermap.org API</span>
                     </div>

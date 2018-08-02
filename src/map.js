@@ -3,6 +3,7 @@ import Photo from './Photo';
 import locations from './locations.json';
 import mapStyles from './map-styles.json';
 
+var googleMapsScript = loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBRr7bxsY3bLOaO7VAQeyc0VaConhI1MvU");
 class Map extends Component {
 
     state = {
@@ -13,20 +14,26 @@ class Map extends Component {
         'styles': mapStyles
     };    
 
-    // componentWillMount() {
-    //     this.scriptCache = cache([
-    //         'https://maps.googleapis.com/maps/api/js?key=AIzaSyBRr7bxsY3bLOaO7VAQeyc0VaConhI1MvU'
-    //     ])
-    //   }
+    gm_authFailure(){
+        window.alert("Error while loading the google Map, resource can't load! Try it again or check your connection.");
+    }
 
     //Loads initial map.
     componentDidMount() {
-        
-        this.setState((prevState) => ({
-            filteredLocations: prevState.locations
-        }));
 
-        this.googleMap(this.state.locations);
+        googleMapsScript.then(() => {
+            this.setState((prevState) => ({
+                filteredLocations: prevState.locations
+            }));
+    
+            this.googleMap(this.state.locations);
+        }).catch(function(error) {
+            console.log(error);
+            window.alert("Error while loading the google Map, resource can't load! Try it again or check your connection.");
+        })
+
+        window.gm_authFailure = this.gm_authFailure;
+    
     }
 
 
@@ -290,6 +297,19 @@ class Map extends Component {
 export default Map;
 
 
+function loadScript(src) {
+    return new Promise(function(resolve, reject){
+      var script = document.createElement('script');
+      script.src = src;
+      script.addEventListener('load', function () {
+        resolve();
+      });
+      script.addEventListener('error', function (e) {
+        reject(e);
+      });
+      document.body.appendChild(script);
+    })
+  };
 
 
 

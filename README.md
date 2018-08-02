@@ -10,6 +10,9 @@ For further information about the weather, the api of openweathermap.org is used
 To start the app go to the folder and type 'yarn start'.
 The project uses react and google maps api, if your familiar with this feel free to edit or add your own code. 
 
+## Production / Development
+The application uses a service worker to display minimal offline content. This only works in production mode, so you might need to build the project with 'yarn build' and start it from the _build_ folder.
+
 ## License - for the photos
 
 Copyright (c) [2018] [Frederic Wollinger]

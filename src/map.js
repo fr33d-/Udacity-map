@@ -259,7 +259,7 @@ class Map extends Component {
                     <div id="mapOverlayContent">
                         {/* <input className="search-bar" type="text" name="search" placeholder="Search" />
                         <button type="button" className="search-button">Search</button> */}
-                        <label for="filterDropdown">Filter: </label>
+                        <label htmlFor="filterDropdown">Filter: </label>
                         <select onChange={this.handleChange} id="filterDropdown">
                             <option value="all">all</option>
                             <option value="art">Art</option>

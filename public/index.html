@@ -20,7 +20,15 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRr7bxsY3bLOaO7VAQeyc0VaConhI1MvU"></script>
+    <script>
+      let script = document.createElement('script');
+      script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBRr7bxsY3bLOaO7VAQeyc0VaConhI1MvU"
+      document.head.append(script);
+
+      script.onerror = function() {
+        alert("Error while loading the google Map. Resource can't load."); 
+      };
+</script>
     <title>Udacity Map Project</title>
   </head>
   <body>

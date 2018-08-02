@@ -3,11 +3,6 @@ import Photo from './Photo';
 
 class Map extends Component {
 
-    // constructor(props) {
-    //     super(props)
-    //     this.openMarker = this.openMarker.bind(this)
-    // }
-
     state = {
         'locations':  [
             {id: 1, title: 'NYC upper west side', location: {lat: 40.800360, lng: -73.962057 }, photo: 'USA-1.jpg', description: 'View between skyscrapers in NYC.', category: 'places, nature, NYC', marker: {}},
@@ -217,6 +212,12 @@ class Map extends Component {
             }
         ]
     };    
+
+    // componentWillMount() {
+    //     this.scriptCache = cache([
+    //         'https://maps.googleapis.com/maps/api/js?key=AIzaSyBRr7bxsY3bLOaO7VAQeyc0VaConhI1MvU'
+    //     ])
+    //   }
 
     //Loads initial map.
     componentDidMount() {
@@ -444,11 +445,6 @@ class Map extends Component {
         document.getElementById('mapOverlayContent').style.display = "block";
         document.getElementById('mapOverlay').style.height = "90vh";
     }
-
-    // openMarker(id) {
-    //     console.log(id);
-    //     window.google.maps.event.trigger(this.markers[id], 'click');
-    // }
 
     //Render method returning basic html structure with map and sidebar
     //Sidebar contains responsive min and max buttons, header, finter, a list of all photos and app info.
